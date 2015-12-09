@@ -3,16 +3,28 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Jitter.Models;
 
 namespace Jitter.Controllers
 {
     public class JitterController : Controller
     {
+        public JitterRepository Repo { get; set; }
+
+        public JitterController(): base()
+        {
+            Repo = new JitterRepository();
+        }
         // GET: Jitter
         // Maybe the Public feed here?
         public ActionResult Index()
         {
-            return View();
+            List<Jot> my_jots = Repo.GetAllJots();
+           // my_jots.Add(new Jot { Content = "Yay!", Date = DateTime.Now });
+           // my_jots.Add(new Jot { Content = "Yay!", Date = DateTime.Now });
+           // my_jots.Add(new Jot { Content = "Yay!", Date = DateTime.Now });
+           // my_jots.Add(new Jot { Content = "Yay!", Date = DateTime.Now });
+            return View(my_jots);
         }
 
         [Authorize]
@@ -24,6 +36,9 @@ namespace Jitter.Controllers
         [Authorize]
         public ActionResult UserFeed()
         {
+            string userId = User.Identity.GetUserId();
+            ApplicationUser app_user = app.
+            List<Jot> list_of_jots = Repo.GetUserJots();
             return View();
         }
 
